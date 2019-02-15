@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Park Near Me</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'search/css/main.css' %}" media="screen" title="no title"  charset="utf-8">
+    </head>
+    <body>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper deep-green accent-2">
+                    <a href="/" class="brand-logo center">
+                        Park Near Me
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <main>
+            <div class="parallax-container">
+                <div class="parallax">
+                    {% load static %}
+                    <img src="{% static 'search/imgs/bryce.jpg'%}">
+                </div>
+            </div>
+            <div class="section white">
+                <div class="row container">
+                    <div id="mainSearch">
+                        <div class="row">
+                            <div style="width:50%; margin:0 auto;">
+                                <div class="form">
+                                    <form id="form_search" action="/query_api" method="GET">
+                                        <!-- {% csrf_token %} -->
+                                        <div class="input-field">
+                                            <i class="material-icons prefix">find_in_page</i>
+                                            <input type="text" name="term" id="search_term" class="validate" value="{{ request.session.term }}">
+                                            <label for="search_term">PARK</label>
+                                        </div>
+
+                                        <div class="input-field">
+                                            <i class="material-icons prefix">location_on</i>
+                                            <input type="text" name="location" id="search_location" class="validate" value="{{ request.session.location }}">
+                                            <label for="search_location">LOCATION</label>
+                                        </div>
+
+                                        <button id="searchButton" class="btn waves-effect waves-light deep-orange darken-2" type="submit" name="action">Search
+                                            <i class="material-icons right">search</i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parallax-container">
+                <div class="parallax">
+                    {% load static %}
+                    <img src="{% static 'search/imgs/sf.jpg'%}">
+                </div>
+            </div>
+        </main>
+
+        <footer class="page-footer deep-green accent-2">
+                <div class="container center">
+                    <p>
+                        &copy 2017 Copyright 
+                        <a class="grey-text text-lighten-4" href="https://github.com/ytgeng99" target="_blank"> Yongtao Geng </a> | Built using Django, JavaScript, jQuery, Ajax, Materialize CSS, Yelp Fusion API and Google Map API.
+                    </p>
+                </div>
+        </footer>
+    </body>
+    <script type="text/javascript">
+        $('.parallax').parallax();
+    </script>
+</html>

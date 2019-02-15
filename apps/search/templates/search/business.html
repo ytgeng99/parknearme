@@ -1,0 +1,13 @@
+<div class="business_photos" id="{{ business.id }}">
+    <h5>{{ business.name }}</h5>
+    <div class="carousel carousel-slider">
+        <a class="carousel-item" href="#one!"><img src="{{ business.photos.0 }}"></a>
+        <a class="carousel-item" href="#two!"><img src="{{ business.photos.1 }}"></a>
+        <a class="carousel-item" href="#three!"><img src="{{ business.photos.2 }}"></a>
+    </div>
+    <p style="text-align:center;"><a href="">Close</a></p>
+</div>
+
+<script>
+    $('.carousel.carousel-slider').carousel({fullWidth: true, indicators: true});
+</script>

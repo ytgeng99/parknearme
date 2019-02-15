@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Park Near Me</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'search/css/main.css' %}" media="screen" title="no title"  charset="utf-8">
+        <!-- <script type="text/javascript" src="{% static 'search/js/main.js'%}"></script> -->
+    </head>
+
+    <body>
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper deep-green accent-2">
+                    <a href="/" class="brand-logo center">
+                        Park Near Me
+                    </a>
+                </div>
+            </nav>
+        </div>
+        <main>
+            <div class="container">
+                <div class="row" id="filter">
+                    <div class="col s12 m3" id="filters">
+                        <form id="filter_search" action="/filter_search" method="GET">
+                            <!-- {% csrf_token %} -->
+                            <div class="card-panel hoverable" id="recommendSelect">
+                                <h5>Sort By</h5>
+                                <p>
+                                    <input name="recommended" type="radio" id="default" value="defaultRecommended" />
+                                    <label for="default">Default Recommended</label>
+                                </p>
+                                <p>
+                                    <input name="recommended" type="radio" id="highestrated" value="highestRated" />
+                                    <label for="highestrated">Highest Rated</label>
+                                </p>
+                                <p>
+                                    <input name="recommended" type="radio" id="mostreviewed" value="mostReviewed" />
+                                    <label for="mostreviewed">Most Reviewed</label>
+                                </p>
+                            </div>
+                            <div class="card-panel hoverable" id="distanceSelect">
+                                <h5>Distance</h5>
+                                <p>
+                                    <input name="distance" type="radio" id="defaultdist" value="defaultDist" />
+                                    <label for="defaultdist">Default</label>
+                                </p>
+                                <p>
+                                    <input name="distance" type="radio" id="5miles" value="5" />
+                                    <label for="5miles">5 Mils</label>
+                                </p>
+                                <p>
+                                    <input name="distance" type="radio" id="10miles" value="10" />
+                                    <label for="10miles">10 Miles</label>
+                                </p>
+                                <p>
+                                    <input name="distance" type="radio" id="30miles" value="30" />
+                                    <label for="30miles">30 Miles</label>
+                                </p>
+                            </div>
+                            <div class="card-panel hoverable" id="categorySelect">
+                                <h5>Category</h5>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="activelife" name="categories" value="Active Life">
+                                    <label for="activelife">Active Life</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="palygrounds" name="categories" value="Playgrounds">
+                                    <label for="palygrounds">Playgrounds</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="hiking" name="categories" value="Hiking">
+                                    <label for="hiking">Hiking</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="boating" name="categories" value="Boating">
+                                    <label for="boating">Boating</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="lakes" name="categories" value="Lakes">
+                                    <label for="lakes">Lakes</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="kidsactivity" name="categories" value="Kids Activities">
+                                    <label for="kidsactivity">Kids Activities</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="pets" name="categories" value="Pets">
+                                    <label for="pets">Pets</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="beaches" name="categories" value="Beachs">
+                                    <label for="beaches">Beachs</label>
+                                </p>
+                                <p>
+                                    <input class="checkbox filled-in" type="checkbox" id="campgrounds" name="categories" value="Campgrounds">
+                                    <label for="campgrounds">Campgrounds</label>
+                                </p>
+                            </div>
+                            <br/>
+                            <button class="btn waves-effect waves-light deep-orange darken-2" type="submit" name="action">Filter</button>
+                        </form>
+                    </div>
+                    <div class="col s12 m9" id="moreresult">
+                        {% for business in businesses %}
+                        <div class="card horizontal hoverable" business_id="{{ business.id }}">
+                            <div class="card-image" id="searchImg">
+                                <a href="">
+                                    <img src="{{ business.image_url }}" alt="restaurant image" style="height:200px; width:60%;">
+                                </a>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content" id="searchCont">
+                                    <a href="" class="name_link">
+                                        <h5>{{ business.name }}</h5>
+                                    </a>
+                                    <p>
+                                        <b>Rating:</b> {{ business.rating }} | 
+                                        <b>Reviews:</b> {{ business.review_count }} | 
+                                        <b>Price:</b> {{ business.price }} |
+                                        {% if business.is_closed %}
+                                            <b>Closed</b>>
+                                        {% else %}
+                                            <b>Opening</b>
+                                        {% endif %}
+                                    </p>
+                                    <p> 
+                                        {{ business.location.address1}}, 
+                                        {{ business.location.city }}
+                                        {{ business.location.state }},  
+                                        {{ business.location.zip_code}}
+                                    </p> 
+                                    <p>Disitance: {{business.distance}} Miles</p>
+                                    <p> 
+                                        {% if business.phone %}
+                                        Phone: {{ business.phone }} 
+                                        {% endif %}
+                                    </p>
+                                    <p>
+                                        <a href="{{ business.url }}" target="_blank">Yelp</a> | 
+                                        <a href="https://www.google.com/maps/place/{{ business.location.address1 }} {{ business.location.city }} {{ business.location.state }}" target="_blank">Map</a> 
+                                        
+                                    </p>
+                                    <div id="lifeSearch">
+                                        <a href="#modal1" class="modal-trigger" id='parking' location= {{business.location.zip_code}}>Parking</a> | 
+                                        <a href="#modal1" class="modal-trigger" id='food' location= {{business.location.zip_code}}>Food</a> | 
+                                        <a href="#modal1" class="modal-trigger" id='market' location= {{business.location.zip_code}}>Market</a> |
+                                        <a href="#modal1" class="modal-trigger" id='gasoline' location= {{business.location.zip_code}}>Gas Station</a> | 
+                                        <a href="#modal1" class="modal-trigger" id="outlet" location= {{business.location.zip_code}}>Shopping</a>
+                                        <div id="needs">
+                                            <div id="modal1" class="modal">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="page-footer deep-green accent-2">
+                <div class="container center">
+                    <p>
+                        &copy 2017 Copyright 
+                        <a class="grey-text text-lighten-4" href="https://github.com/ytgeng99" target="_blank"> Yongtao Geng </a> | Built using Django, JavaScript, jQuery, Ajax, Materialize CSS,Yelp Fusion API and Google Map API.
+                    </p>
+                </div>
+        </footer>
+    </body>
+    <script>
+        $('.modal').modal();
+
+        $(document).on('click', '#searchImg', function(e) {
+            e.preventDefault();
+            var card = $(this).parent();
+            var business_id = card.attr('business_id');
+            if ($('#' + business_id).length === 0) {
+                $.ajax({
+                    url: '/query_business/' + business_id,
+                    method: 'GET',
+                    success: function(res) {
+                        $(card).after(res);
+                        $(card).next().hide();
+                        $(card).next().slideDown(1000);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '#searchCont .name_link', function(e) {
+            e.preventDefault();
+            var card = $(this).parent().parent().parent();
+            var business_id = card.attr('business_id');
+            if ($('#' + business_id).length === 0) {
+                $.ajax({
+                    url: '/query_business/' + business_id,
+                    method: 'GET',
+                    success: function(res) {
+                        $(card).after(res);
+                        $(card).next().hide();
+                        $(card).next().slideDown(1000);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.business_photos a', function(e) {
+            e.preventDefault();
+            var business_photos = $(this).parent().parent();
+            $(business_photos).slideUp('slow');
+            setTimeout(function() {
+                $(business_photos).remove();
+            }, 1000);
+        });
+
+        $(document).on('click', '#lifeSearch a', function(e) {
+            e.preventDefault();
+            var term = $(this).attr('id');
+            var location = $(this).attr('location');
+            $('#needsResult').remove();
+            $.ajax({
+                url: '/needs_search/' + term + '/' + location,
+                method: 'GET',
+                success: function(res) {
+                    console.log("res from needs:", res);
+                    $('#modal1').html(res);
+                }
+            });
+            
+        });
+    </script>
+</html>

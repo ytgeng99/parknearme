@@ -1,0 +1,62 @@
+<div id="needsResult">
+	<div class="modal-content">
+		<div class="card-panel teal white-text lighten-2 center">
+			<h5>Stay with love and fun that make your life better</h5>
+		</div>
+		{% for business in businesses %}
+		<div class="row">
+	        <div class="col s12 m6 offset-m3">
+	        	<div class="card hoverable sticky-action">
+	        		<div class="waves-effect waves-block waves-light">
+				      	<img class="activator" src="{{ business.image_url }}" alt="park image" style="height:320px; width:100%;">
+				    </div>
+				    <div class="card-content">
+				      	<p class="card-title activator">{{ business.name }}<i class="material-icons right">more_vert</i>
+				      		<p>
+		                        Rating: {{ business.rating }} | 
+		                        Reviews: {{ business.review_count }} | 
+		                        {% if business.is_closed %}
+		                            Closed
+		                        {% else %}
+		                            Opening
+		                        {% endif %}
+		                    </p>
+				      	</p>
+				    </div>
+				    <div class="card-reveal">
+			    	 	<span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+			      		<br>
+			      		<br>
+			        	<div class="card-panel teal">
+			          		<p class="white-text">
+			          			Address: 
+			          			{{ business.location.address1}}, 
+                        		{{ business.location.city }}
+                        		{{ business.location.state }},  
+                        		{{ business.location.zip_code}}
+			          		</p>
+			          		<p class="yellow-text">
+			          			Disitance: {{business.distance}} Miles
+			          		</p>
+			          		<p class="orange-text">
+			          			{% if business.phone %}
+                        			Phone: {{ business.phone }} 
+                        		{% endif %}
+			          		</p>
+			        	</div>
+				    </div>
+				    <div class="card-action">
+				    	<p>
+	                        <a href="{{ business.url }}" target="_blank">Yelp</a>
+	                        <a href="https://www.google.com/maps/place/{{ business.location.address1 }} {{ business.location.city }} {{ business.location.state }}" target="_blank">Google Map</a> 
+	                    </p>
+				    </div>
+				</div>
+	        </div>
+	    </div>
+        {% endfor %}
+	</div>
+	<div>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>

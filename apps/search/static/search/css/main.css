@@ -1,0 +1,87 @@
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    main {
+        flex: 1 0 auto;
+    }
+    #mainSearch {
+        position: relative;
+        bottom:0.05vh;
+    }
+    #searchButton {
+        position: relative;
+        left: 6vh;
+        margin-top: 10px;
+    }
+    footer {
+        margin-top: 30px;
+        color: white;
+    }
+
+    footer a {
+        color: lightblue;
+    }
+    .navbar-fixed {
+        height: 80px;
+    }
+
+    .navbar-fixed {
+        z-index: 999;
+    }
+
+    /* label color */
+    .input-field label {
+        color: rgb(216, 67, 21);
+    }
+    /* label focus color */
+    .input-field input:focus + label {
+        color: rgb(216, 67, 21) !important;
+    }
+    /*  label underline focus color */
+    .input-field input:focus {
+        border-bottom: 1px solid rgb(216, 67, 21) !important;
+        box-shadow: 0 1px 0 0 rgb(216, 67, 21) !important;
+    }
+    /* valid color */
+    .input-field input.valid {
+        border-bottom: 1px solid rgb(216, 67, 21) !important;
+        box-shadow: 0 1px 0 0 rgb(216, 67, 21) !important;
+    }
+    /* invalid color */
+    .input-field input.invalid {
+        border-bottom: 1px solid rgb(216, 67, 21) !important;;
+        box-shadow: 0 1px 0 0 rgb(216, 67, 21) !important;;
+    }
+
+    .input-field .prefix.active {
+        color: rgb(216, 67, 21);
+    }
+
+    .results {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .business_photos {
+        width: 100%;
+    }
+
+
+    @media all and (max-width: 550px) {
+        .navbar-fixed {
+            height: 70px;
+        }
+    }
+
+    @media all and (max-width: 830px) {
+        .card {
+            width: 100%;
+        }
+    }
