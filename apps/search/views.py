@@ -14,7 +14,7 @@ import urllib
 import requests
 import math
 
-API_KEY = 'XqcQxC32XGk3g15O98rmuenjPRj6nTHu8ElGkd2Q7z5ZwW7ZAwYnGbEsfmL-JZ4sUyIVo05uibNxMLc5QLcjFJPnuqCiVW0Rd1t58oYARkuzSUkq5bIUv43KHttbXHYx'
+API_KEY = ''
 
 API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
